@@ -41,6 +41,7 @@ def error_message(line_number: int, message: str) -> str:
 
 def get_categories_content(contents: List[str]) -> Tuple[Categories, CategoriesLineNumber]:
 
+    category = None
     categories = {}
     category_line_num = {}
 
@@ -60,9 +61,10 @@ def get_categories_content(contents: List[str]) -> Tuple[Categories, CategoriesL
         ][0]
 
         title_match = link_re.match(raw_title)
-        if title_match:
-                title = title_match.group(1).upper()
-                categories[category].append(title)
+
+        if title_match and category:
+            title = title_match.group(1).upper()
+            categories[category].append(title)
 
     return (categories, category_line_num)
 
